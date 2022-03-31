@@ -906,7 +906,7 @@
     var baseDocument = window.document, defsSvg;
     if (!baseDocument.getElementById(DEFS_ID)) { // Add svg defs
       defsSvg = (new window.DOMParser()).parseFromString(DEFS_HTML, 'image/svg+xml');
-      baseDocument.body.appendChild(defsSvg.documentElement);
+      baseDocument.getElementById('leader-line-container').appendChild(defsSvg.documentElement);
       pathDataPolyfill(window);
     }
   }
@@ -1110,7 +1110,7 @@
       svg.style.visibility = 'hidden';
     }
 
-    baseDocument.body.appendChild(svg);
+    baseDocument.getElementById('leader-line-container').appendChild(svg);
 
     // label (after appendChild(svg), bBox is used)
     [0, 1, 2].forEach(function(i) {
@@ -3773,7 +3773,7 @@
         attachProps.path.style.fill = attachProps.fill || 'none';
         attachProps.isShown = false;
         svg.style.visibility = 'hidden';
-        baseDocument.body.appendChild(svg);
+        baseDocument.getElementById('leader-line-container').appendChild(svg);
         setupWindow((window = baseDocument.defaultView));
         attachProps.bodyOffset = getBodyOffset(window); // Get `bodyOffset`
 
