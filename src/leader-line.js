@@ -385,11 +385,14 @@
 
     rect = element.getBoundingClientRect();
 
+    var width = element.offsetWidth;
+    var height = element.offsetHeight;
     var offset = getOffset(element);
     var left = offset[0];
     var top = offset[1];
-    var right = left + rect.width;
-    var bottom = top + rect.height;
+    var right = left + width;
+    var bottom = top + height;
+
 
     for (prop in rect) { bBox[prop] = rect[prop]; } // eslint-disable-line guard-for-in
 
@@ -399,6 +402,8 @@
     bBox.top = top;
     bBox.right = right;
     bBox.bottom = bottom;
+    bBox.width = width;
+    bBox.height = height;
 
     if (!relWindow) {
       if (!(win = doc.defaultView)) {
