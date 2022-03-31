@@ -237,6 +237,21 @@
   }
   window.copyTree = copyTree; // [DEBUG/]
 
+  function getOffset(element) {
+    var offsetLeft = 0;
+    var offsetTop  = 0;
+
+    while (element)
+    {
+        offsetLeft += element.offsetLeft;
+        offsetTop  += element.offsetTop;
+
+        element = element.offsetParent;
+    }
+
+    return [offsetLeft, offsetTop];
+  }
+
   /**
    * Parse and get an alpha channel in color notation.
    * @param {string} color - A color notation such as `'rgba(10, 20, 30, 0.6)'`.
@@ -357,6 +372,7 @@
    * @returns {(BBox|null)} A bounding-box or null when failed.
    */
   function getBBox(element, relWindow) {
+    console.log('element', element, 'relWindow', relWindow);
     var bBox = {}, rect, prop, doc, win;
     if (!(doc = element.ownerDocument)) {
       console.error('Cannot get document that contains the element.');
@@ -368,7 +384,21 @@
     }
 
     rect = element.getBoundingClientRect();
+
+    var offset = getOffset(element);
+    var left = offset[0];
+    var top = offset[1];
+    var right = left + rect.width;
+    var bottom = top + rect.height;
+
     for (prop in rect) { bBox[prop] = rect[prop]; } // eslint-disable-line guard-for-in
+
+    bBox.left = left;
+    bBox.x = left;
+    bBox.y = top;
+    bBox.top = top;
+    bBox.right = right;
+    bBox.bottom = bottom;
 
     if (!relWindow) {
       if (!(win = doc.defaultView)) {
@@ -4227,7 +4257,25 @@
             attachProps.element.style[styleKey] = attachProps.style[styleKey];
           }
         });
-        bBox = attachProps.element.getBoundingClientRect();
+
+        var rect = attachProps.element.getBoundingClientRect();
+
+        var offset = getOffset(attachProps.element);
+        var left = offset[0];
+        var top = offset[1];
+        var right = left + rect.width;
+        var bottom = top + rect.height;
+
+        var bBox = {};
+
+        for (prop in rect) { bBox[prop] = rect[prop]; } // eslint-disable-line guard-for-in
+
+        bBox.left = left;
+        bBox.x = left;
+        bBox.y = top;
+        bBox.top = top;
+        bBox.right = right;
+        bBox.bottom = bottom;
 
         // height (simulate min-height with current style (particularly box-sizing))
         if (bBox.height < conf.minHeight) {
