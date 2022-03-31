@@ -963,7 +963,7 @@
     });
 
     if (props.baseWindow && props.svg) {
-      props.baseWindow.document.body.removeChild(props.svg);
+      props.baseWindow.document.getElementById('leader-line-container').removeChild(props.svg);
     }
     props.baseWindow = newWindow;
     setupWindow(newWindow);
@@ -3517,7 +3517,7 @@
     props.attachments.slice().forEach(function(attachProps) { unbindAttachment(props, attachProps); });
 
     if (props.baseWindow && props.svg) {
-      props.baseWindow.document.body.removeChild(props.svg);
+      props.baseWindow.document.getElementById('leader-line-container').removeChild(props.svg);
     }
     delete insProps[this._id];
   };

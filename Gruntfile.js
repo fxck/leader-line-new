@@ -166,7 +166,7 @@ module.exports = grunt => {
                 .replace(keyPath[2] || reEXPORT, '$1');
             });
 
-            const banner = `/*! ${PKG.title || PKG.name} v${PKG.version} (c) ${PKG.author.name} ${PKG.homepage} */\n`;
+            const banner = `/*! ${PKG.title || PKG.name} v${PKG.version} (c) ${PKG.author?.name} ${PKG.homepage} */\n`;
             return banner + minJs(preProc.removeTag('DEBUG',
               content.replace(/@INCLUDE\[code:([^\n]+?)\]@/g,
                 (s, codeKey) => {
