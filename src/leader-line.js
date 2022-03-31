@@ -372,7 +372,7 @@
    * @returns {(BBox|null)} A bounding-box or null when failed.
    */
   function getBBox(element, relWindow) {
-    console.log('element', element, 'relWindow', relWindow);
+    // console.log('element', element, 'relWindow', relWindow);
     var bBox = {}, rect, prop, doc, win;
     if (!(doc = element.ownerDocument)) {
       console.error('Cannot get document that contains the element.');
